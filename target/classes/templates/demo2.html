@@ -1,0 +1,34 @@
+<html>
+<body>
+<pre>
+#foreach($item in $list)
+        This is Color $item.第几号 ${foreach.index}...${foreach.count}
+#end
+        $!{value}
+        $!{ve}
+        ${ve}
+        $!{list}
+    $!{map}
+
+#foreach($item in $map.entrySet())
+     Number:  This is Color $item.key,第几号  $item.value
+#end
+
+  #foreach($item in $map.keySet())
+    Number: This is Color $item.key,第几号 $map.get($item.key)
+  #end
+    $!{pop.name}
+    $!{pop.bornth}
+
+
+    #set($hello="hello")
+    $!{hello}
+    #set($helloword="helloword")
+    $!{helloword}
+
+    #set($title="标题头")
+    Parse:#parse("header.html")
+    Include:#parse("header.html")
+</pre>
+</body>
+</html>
