@@ -4,7 +4,7 @@
     #*
     你看不到我~~~~
     *#
-     $!{value1}
+    $!{value1}
     $!{value2} ## 如果不存在，强制为空
     ${value3}
 
@@ -30,7 +30,8 @@
     Title: $!{title}
 
 
-
+    Parse: #parse("header.html")
+    Include: #include("header.html")
 
     #macro (render_color, $index, $color)
         Color Render Macro $index, $color

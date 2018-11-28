@@ -15,9 +15,13 @@ public class WendaWebConfiguration extends WebMvcConfigurerAdapter {
     @Autowired
     LoginInterceptor  LoginInterceptor;
     @Override
+    /**
+     * 注册 拦截器
+     */
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(LoginInterceptor);
-        registry.addInterceptor(passportInterceptor);
+
+       registry.addInterceptor(passportInterceptor);
+       registry.addInterceptor(LoginInterceptor).addPathPatterns("/user/*");
     }
 
 

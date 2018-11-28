@@ -82,12 +82,19 @@ public class UserService {
         map.put("ticket",ticket);
         return  map;
     }
-    //将ticket和user关连
+    public void loginOut(String tiket){
+        loginTicketDao.updateStatus(tiket,1);
+    }
+    /**
+     * 第一次生成cookie
+     * @param userId
+     * @return
+     */
     public String addLoginTicket(int userId){
         LoginTicket loginTicket=new LoginTicket();
         loginTicket.setUserId(userId);
         Date now =new Date();
-        now.setTime(now.getTime()+1000*3600);
+        now.setTime(now.getTime()+1000*3600*24);
         loginTicket.setExpired(now);
         //0表示存活滑稽
         loginTicket.setStatus(0);

@@ -1,4 +1,4 @@
-package com.nowcoder.pojo;
+package com.nowcoder.model;
 
 import java.util.HashMap;
 import java.util.Map;

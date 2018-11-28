@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * 请求连接中加入user
@@ -24,21 +25,26 @@ public class PassportInterceptor implements HandlerInterceptor {
     LoginTicketDao loginTicketDao;
     @Autowired
     HostHolder hostHolder;
+
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        String ticket=null;
-        if( httpServletRequest.getCookies()!=null){
-            for(Cookie cookie:httpServletRequest.getCookies()){
-                if("ticket".equals(cookie.getName())){
-                    ticket=cookie.getValue();
+        String ticket = null;
+        //拿到t票，从数据库中拿到user放入
+        if (httpServletRequest.getCookies() != null) {
+            for (Cookie cookie : httpServletRequest.getCookies()) {
+                if ("ticket".equals(cookie.getName())) {
+                    ticket = cookie.getValue();
                     break;
                 }
             }
         }
-        if(ticket!=null){
-            LoginTicket loginTicket=loginTicketDao.selectByTicket(ticket);
-            User user=userdao.selectById(loginTicket.getUserId());
-            //
+        if (ticket != null) {
+            LoginTicket loginTicket = loginTicketDao.selectByTicket(ticket);
+            //loginTicket.getStatus()==1用户是否登出 1登出
+            if (loginTicket == null || loginTicket.getStatus() == 1 || loginTicket.getExpired().before(new Date())) {
+                return true;
+            }
+            User user = userdao.selectById(loginTicket.getUserId());
             hostHolder.setUser(user);
         }
         return true;
@@ -46,12 +52,16 @@ public class PassportInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        User user=hostHolder.getUser();
-        modelAndView.addObject("user",user);
-    }
+        if (modelAndView != null && hostHolder.getUser() != null) {
+            modelAndView.addObject("user", hostHolder.getUser());
+        }
 
+    }
     @Override
-    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
+    public void afterCompletion (HttpServletRequest httpServletRequest, HttpServletResponse
+            httpServletResponse, Object o, Exception e) throws Exception {
+        //请求结束后去除user！！！！
+        hostHolder.clear();
 
     }
 }

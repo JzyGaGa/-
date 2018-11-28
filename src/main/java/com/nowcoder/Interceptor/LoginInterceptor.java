@@ -29,9 +29,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         if(hostHolder.getUser()==null){
-            httpServletResponse.sendRedirect("/relogin?next="+httpServletRequest.getRequestURI());
+            httpServletResponse.sendRedirect("/reglogin?next="+httpServletRequest.getRequestURI());
         }
-        //直接挑走了
+        //直接跳走了
         return true;
     }
 

@@ -14,7 +14,6 @@
         <!-- Allows JDBC support for generated keys. A compatible driver is required.
         This setting forces generated keys to be used if set to true,
          as some drivers deny compatibility but still work -->
-        <!--插入是否返回值-->
         <setting name="useGeneratedKeys" value="true"/>
     </settings>
 

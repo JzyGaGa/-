@@ -1,7 +1,7 @@
 package com.nowcoder.controller;
 
 import com.nowcoder.model.Question;
-import com.nowcoder.pojo.VoObject;
+import com.nowcoder.model.VoObject;
 import com.nowcoder.service.QuestionService;
 import com.nowcoder.service.UserService;
 import org.slf4j.Logger;
@@ -52,7 +52,6 @@ public class HomeController {
             vo.set("question",question);
             vo.set("user",userService.getUserById(question.getUserId()));
             list.add(vo);
-            System.out.println(question.getTitle());
         }
         return list;
     }

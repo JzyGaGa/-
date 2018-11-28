@@ -1,5 +1,6 @@
 package com.nowcoder.Utils;
 
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,28 @@ import java.util.Map;
 public class WendaUtil {
     private static final Logger logger = LoggerFactory.getLogger(WendaUtil.class);
 
+    /**
+     * josn串
+     * @param code
+     * @param message
+     * @return
+     */
+    public static String getJSONString(int code,String message){
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("code",code);
+        jsonObject.put("message",message);
+        return jsonObject.toString();
+    }
+    /**
+     * josn串
+     * @param code
+     * @return
+     */
+    public static String getJSONString(int code){
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("code",code);
+        return jsonObject.toString();
+    }
     public static String MD5(String key) {
         char hexDigits[] = {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'

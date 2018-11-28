@@ -9,6 +9,15 @@ public class Question {
     private Date createdDate;
     private int userId;
     private int commentCount;
+    private  int followCount;
+
+    public int getFollowCount() {
+        return followCount;
+    }
+
+    public void setFollowCount(int followCount) {
+        this.followCount = followCount;
+    }
 
     public int getId() {
         return id;
